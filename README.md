@@ -50,14 +50,14 @@ Use `tsc-esm` instead of `tsc`.
 ##### Global installation
 
 ```
-npm i -g tsc-esm
+npm i -g @digitak/tsc-esm
 tsc-esm
 ```
 
 ##### Local installation
 
 ```
-npm i -g tsc-esm
+npm i -g @digitak/tsc-esm
 ```
 
 Then add a script in your package.json:
@@ -79,7 +79,7 @@ npm run build
 #### API
 
 ```ts
-import { build } from 'tsc-esm'
+import { build } from '@digitak/tsc-esm'
 
 build() // takes no argument
 ```
