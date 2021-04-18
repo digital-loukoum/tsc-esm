@@ -1,6 +1,6 @@
 import { exec } from "child_process"
 import { existsSync, readFileSync } from "fs"
-import fastGlob from "fast-glob"
+import glob from "fast-glob"
 import patchJsImports from "@digitak/grubber/library/utilities/patchJsImports.js"
 
 const globDirectory = input => glob.sync(input, { onlyDirectories: true })
