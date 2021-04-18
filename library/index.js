@@ -22,7 +22,6 @@ export async function compile() {
 
 export function patch() {
 	const directories = getOutputDirectories()
-	console.log("directories:", directories)
 	patchJsImports.apply(null, directories)
 }
 
