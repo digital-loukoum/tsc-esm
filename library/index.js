@@ -4,16 +4,17 @@ import glob from "fast-glob"
 import patchJsImports from "@digitak/grubber/library/utilities/patchJsImports.js"
 
 export async function build() {
-	console.log("Compiling typescript...")
-	// await compile()
-	console.log("Patching esm imports...")
-	// patch()
-	console.log("Done!")
+	try {
+		await compile()
+		patch()
+	} catch (error) {
+		console.error("[tsc-esm] Could not build:", error)
+	}
 }
 
 export async function compile() {
 	return new Promise((resolve, reject) =>
-		exec("tsc", error => (error ? reject(error) : resolve()))
+		exec("node_modules/.bin/tsc", error => (error ? reject(error) : resolve()))
 	)
 }
 
