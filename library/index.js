@@ -1,7 +1,9 @@
 import { exec } from "child_process"
 import { existsSync, readFileSync } from "fs"
-import glob from "fast-glob"
+import fastGlob from "fast-glob"
 import patchJsImports from "@digitak/grubber/library/utilities/patchJsImports.js"
+
+const globDirectory = input => glob.sync(input, { onlyDirectories: true })
 
 export async function build() {
 	try {
@@ -20,7 +22,8 @@ export async function compile() {
 
 export function patch() {
 	const directories = getOutputDirectories()
-	patchJsImports(...directories)
+	console.log("directories:", directories)
+	patchJsImports.apply(null, directories)
 }
 
 /**
@@ -29,8 +32,8 @@ export function patch() {
 function getOutputDirectories() {
 	if (existsSync("tsconfig.json")) {
 		const { include, compilerOptions } = JSON.parse(readFileSync("tsconfig.json", "utf8"))
-		if (compilerOptions.outDir) return [glob.sync(compilerOptions.outDir)]
-		if (include && include.length) return include.map(path => glob.sync(path))
+		if (compilerOptions.outDir) return globDirectory(compilerOptions.outDir)
+		if (include && include.length) return globDirectory(path)
 	}
 	return ["."]
 }
