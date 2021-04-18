@@ -1,0 +1,35 @@
+{
+	"name": "@digitak/tsc-esm",
+	"version": "0.5.0",
+	"type": "module",
+	"description": "A cli utility that compile using tsc then add .js extension to esm import names",
+	"main": "library/index.js",
+	"bin": "binary/tsc-esm.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/digital-loukoum/tsc-esm.git"
+	},
+	"keywords": [
+		"tsc",
+		"typescript",
+		"compile",
+		"esm",
+		"esnext",
+		"modules",
+		"js",
+		"browser"
+	],
+	"author": "Gin Quin",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/digital-loukoum/tsc-esm/issues"
+	},
+	"homepage": "https://github.com/digital-loukoum/tsc-esm#readme",
+	"dependencies": {
+		"@digitak/grubber": "^1.0.1",
+		"fast-glob": "^3.2.5"
+	}
+}
