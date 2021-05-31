@@ -4,6 +4,7 @@ import glob from "fast-glob"
 import patchJsImports from "@digitak/grubber/library/utilities/patchJsImports.js"
 
 const globDirectory = input => glob.sync(input, { onlyDirectories: true })
+const stripComments = data => data.replace(/\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/)/g, (m, g) => g ? "" : m)
 
 export async function build() {
 	try {
@@ -30,7 +31,10 @@ export function patch() {
  */
 function getOutputDirectories() {
 	if (existsSync("tsconfig.json")) {
-		const { include, compilerOptions } = JSON.parse(readFileSync("tsconfig.json", "utf8"))
+		const data = readFileSync("tsconfig.json", "utf8")
+		const json = JSON.parse(stripComments(data));
+		const { include, compilerOptions } = json
+
 		if (compilerOptions.outDir) return globDirectory(compilerOptions.outDir)
 		if (include && include.length) return globDirectory(path)
 	}
