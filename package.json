@@ -1,6 +1,6 @@
 {
 	"name": "@digitak/tsc-esm",
-	"version": "1.22.12",
+	"version": "1.22.13",
 	"type": "module",
 	"description": "A cli utility that compile using tsc then add .js extension to esm import names",
 	"main": "library/index.js",
