@@ -29,7 +29,7 @@
 	},
 	"homepage": "https://github.com/digital-loukoum/tsc-esm#readme",
 	"dependencies": {
-		"@digitak/grubber": "^1.0.3",
+		"@digitak/grubber": "^2.0.1",
 		"fast-glob": "^3.2.5"
 	}
 }
