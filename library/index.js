@@ -23,7 +23,7 @@ export async function compile() {
 
 export function patch(aliases) {
 	const directories = getOutputDirectories()
-	patchJsImports.apply(null, directories, aliases)
+	patchJsImports(directories, aliases)
 }
 
 /**
