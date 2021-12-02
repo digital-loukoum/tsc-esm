@@ -1,8 +1,9 @@
-import { exec } from "child_process"
+import { spawn } from "child_process"
 import { existsSync, readFileSync } from "fs"
 import glob from "fast-glob"
 import patchJsImports from "@digitak/grubber/library/utilities/patchJsImports.js"
 import path from "path"
+import { parse } from "relaxed-json"
 
 const globDirectory = input => glob.sync(input, { onlyDirectories: true })
 
@@ -16,9 +17,9 @@ export async function build() {
 }
 
 export async function compile() {
-	return new Promise((resolve, reject) =>
-		exec("node_modules/.bin/tsc", error => (error ? reject(error) : resolve()))
-	)
+	return new Promise((resolve, reject) => {
+		spawn("node_modules/.bin/tsc", { stdio: 'inherit' }, error => (error ? reject(error) : resolve()))
+	})
 }
 
 export function patch(aliases) {
@@ -31,9 +32,13 @@ export function patch(aliases) {
  */
 function getOutputDirectories() {
 	if (existsSync("tsconfig.json")) {
-		const { compilerOptions } = JSON.parse(readFileSync("tsconfig.json", "utf8"))
-		if (compilerOptions.outDir) return globDirectory(compilerOptions.outDir)
-		if (compilerOptions.outFile) return globDirectory(path.join(compilerOptions.outFile, '..'))
+		try {
+			const { compilerOptions } = parse(readFileSync("tsconfig.json", "utf8"))
+			if (compilerOptions.outDir) return globDirectory(compilerOptions.outDir)
+			if (compilerOptions.outFile) return globDirectory(path.join(compilerOptions.outFile, '..'))
+		} catch (error) {
+			throw new SyntaxError(`Could not parse tsconfig.json file. ${error}`)
+		}
 	}
 	return ["."]
 }
