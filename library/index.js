@@ -1,4 +1,4 @@
-import { spawn } from "child_process"
+import { spawnSync } from "child_process"
 import { existsSync, readFileSync } from "fs"
 import glob from "fast-glob"
 import patchJsImports from "@digitak/grubber/library/utilities/patchJsImports.js"
@@ -9,22 +9,20 @@ const { parse } = relaxedJson
 
 const globDirectory = input => glob.sync(input, { onlyDirectories: true })
 
-export async function build(aliases) {
+export function build(aliases) {
 	try {
-		await compile()
-		await patch(aliases)
+		compile()
+		patch(aliases)
 	} catch (error) {
 		console.error("[tsc-esm] Could not build:", error)
 	}
 }
 
-export async function compile() {
-	return new Promise((resolve, reject) => {
-		spawn("node_modules/.bin/tsc", { stdio: 'inherit' }, error => (error ? reject(error) : resolve()))
-	})
+export function compile() {
+	spawnSync("node_modules/.bin/tsc", { stdio: 'inherit' })
 }
 
-export async function patch(aliases) {
+export function patch(aliases) {
 	const directories = getOutputDirectories()
 	patchJsImports(directories, aliases)
 }

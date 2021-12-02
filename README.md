@@ -81,7 +81,7 @@ npm run build
 ```ts
 import { build } from '@digitak/tsc-esm'
 
-await build()
+build()
 ```
 
 Or:
@@ -89,8 +89,8 @@ Or:
 ```ts
 import { compile, patch } from '@digitak/tsc-esm'
 
-await compile()
-await patch()
+compile()
+patch()
 ```
 
 ##### Aliases
@@ -98,8 +98,8 @@ await patch()
 You can pass aliases to the `build` or the `patch` functions to control how some paths should be transformed or not:
 
 ```ts
-function build(aliases?: Array<AliasResolver>): Promise<void>
-function patch(aliases?: Array<AliasResolver>): Promise<void>
+function build(aliases?: Array<AliasResolver>): void
+function patch(aliases?: Array<AliasResolver>): void
 
 type AliasResolver = {
    find: RegExp; // the path to match
@@ -116,7 +116,7 @@ It can be useful when working when libraries that don't have clean type definiti
 If you have a `chokidar` dependency for example you might need to tell `tsc-esc` to not patch this specific import:
 
 ```ts
-await build([
+build([
    { find: /^chokidar$/, replacement: null },
 ])
 ```
