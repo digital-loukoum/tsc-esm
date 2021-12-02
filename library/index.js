@@ -3,7 +3,9 @@ import { existsSync, readFileSync } from "fs"
 import glob from "fast-glob"
 import patchJsImports from "@digitak/grubber/library/utilities/patchJsImports.js"
 import path from "path"
-import { parse } from "relaxed-json"
+import relaxedJson from "relaxed-json"
+
+const { parse } = relaxedJson
 
 const globDirectory = input => glob.sync(input, { onlyDirectories: true })
 
