@@ -7,10 +7,10 @@ import { parse } from "relaxed-json"
 
 const globDirectory = input => glob.sync(input, { onlyDirectories: true })
 
-export async function build() {
+export async function build(aliases) {
 	try {
 		await compile()
-		patch()
+		await patch(aliases)
 	} catch (error) {
 		console.error("[tsc-esm] Could not build:", error)
 	}
@@ -22,7 +22,7 @@ export async function compile() {
 	})
 }
 
-export function patch(aliases) {
+export async function patch(aliases) {
 	const directories = getOutputDirectories()
 	patchJsImports(directories, aliases)
 }

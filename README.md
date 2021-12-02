@@ -81,5 +81,44 @@ npm run build
 ```ts
 import { build } from '@digitak/tsc-esm'
 
-build() // takes no argument
+await build()
 ```
+
+Or:
+
+```ts
+import { compile, patch } from '@digitak/tsc-esm'
+
+await compile()
+await patch()
+```
+
+##### Aliases
+
+You can pass aliases to the `build` or the `patch` functions to control how some paths should be transformed or not:
+
+```ts
+function build(aliases?: Array<AliasResolver>): Promise<void>
+function patch(aliases?: Array<AliasResolver>): Promise<void>
+
+type AliasResolver = {
+   find: RegExp; // the path to match
+   replacement: string | null; // the replacement value
+};
+```
+
+The function [String::replace](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace) is used internally so you can replace your path using special patterns like `$1`or `$&`.
+
+If the replacement value is null, the path will be left untransformed.
+
+It can be useful when working when libraries that don't have clean type definitions.
+
+If you have a `chokidar` dependency for example you might need to tell `tsc-esc` to not patch this specific import:
+
+```ts
+await build([
+   { find: /^chokidar$/, replacement: null },
+])
+```
+
+Then all `import chokidar from 'chokidar'` statements will be left unchanged, otherwise it would have been transformed into `import chokidar from 'chokidar/index.js'` which is not typed.

@@ -1,5 +1,6 @@
-export declare function build(): Promise<void>
+import type { AliasResolver } from "@digitak/grubber/library/utilities/resolveAliases"
+export type { AliasResolver }
+
+export declare function build(aliases?: Array<AliasResolver>): Promise<void>
 export declare function compile(): Promise<void>
-export declare function patch(
-	aliases?: Array<{ find: RegExp; replacement: string | null }>
-): void
+export declare function patch(aliases?: Array<AliasResolver>): Promise<void>
