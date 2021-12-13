@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@digitak/grubber@^2.0.4":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@digitak/grubber/-/grubber-2.0.4.tgz#51b3f03003b681b10c5ea9a58a492bab4e768f5e"
-  integrity sha512-4mq2EqQ5WsM34fy5y/Z+LUr5I0xO6bNhwReTCnrDzhsuRtXKiGM+V2ZY1XdAjv4X9p+46kyUksp6W4xr9X1d6Q==
+"@digitak/grubber@^2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@digitak/grubber/-/grubber-2.0.5.tgz#585f29055e916384f8944f22e64c17fca58d74e3"
+  integrity sha512-Y5II2Ml/3MeySjvcACS/xxaC9AJrGPLPu0UPTks8u5JfhWjS3PHKp0C3gJ5h7B0fKXr51XeUDNRg6A1mItvcIw==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
