@@ -1,12 +1,13 @@
 {
 	"name": "@digitak/tsc-esm",
-	"version": "2.0.3",
+	"version": "2.0.4",
 	"type": "module",
 	"description": "A cli utility that compile using tsc then add .js extension to esm import names",
 	"main": "library/index.js",
 	"bin": "binary/tsc-esm.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"deploy": "yarn publish"
 	},
 	"repository": {
 		"type": "git",
@@ -29,7 +30,7 @@
 	},
 	"homepage": "https://github.com/digital-loukoum/tsc-esm#readme",
 	"dependencies": {
-		"@digitak/grubber": "^2.0.4",
+		"@digitak/grubber": "^2.0.5",
 		"fast-glob": "^3.2.5",
 		"relaxed-json": "^1.0.3"
 	}
