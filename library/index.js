@@ -1,7 +1,7 @@
 import { spawnSync } from "child_process"
 import { existsSync, readFileSync } from "fs"
 import glob from "fast-glob"
-import patchJsImports from "@digitak/grubber/library/utilities/patchJsImports.js"
+import patchJsImports from "@digitak/grubber/utilities/patchJsImports"
 import path from "path"
 import relaxedJson from "relaxed-json"
 
