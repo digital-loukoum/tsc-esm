@@ -19,7 +19,7 @@ export function build(aliases) {
 }
 
 export function compile() {
-	spawnSync("node_modules/.bin/tsc", { stdio: 'inherit' })
+	spawnSync("node_modules/.bin/tsc", process.argv.slice(2), { stdio: 'inherit' })
 }
 
 export function patch(aliases) {
