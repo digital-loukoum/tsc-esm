@@ -23,7 +23,8 @@ export function compile() {
 }
 
 export function patch(aliases) {
-	const directories = getOutputDirectories()
+	const tsconfig = getConfigFile(process.argv.slice(2))
+	const directories = getOutputDirectories(tsconfig)
 	patchJsImports(directories, aliases)
 }
 
@@ -41,4 +42,16 @@ function getOutputDirectories() {
 		}
 	}
 	return ["."]
+}
+
+function getConfigFile(argv) {
+	const projectIndex = Math.max(argv.indexOf('-p'), argv.indexOf('--project'))
+	const projectOrTsConfig = argv[projectIndex + 1]
+	if (!projectOrTsConfig) {
+		return 'tsconfig.json'
+	}
+	if (projectOrTsConfig.endsWith('.json')) {
+		return projectOrTsConfig
+	}
+	return path.join(projectOrTsConfig, 'tsconfig.json')
 }
