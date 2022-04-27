@@ -19,26 +19,40 @@ export function build(aliases) {
 }
 
 export function compile() {
-	spawnSync("node_modules/.bin/tsc", { stdio: 'inherit' })
+	spawnSync("node_modules/.bin/tsc", process.argv.slice(2), { stdio: 'inherit' })
 }
 
 export function patch(aliases) {
-	const directories = getOutputDirectories()
+	const tsconfig = getConfigFile(process.argv.slice(2))
+	const directories = getOutputDirectories(tsconfig)
 	patchJsImports(directories, aliases)
 }
 
 /**
  * @return the output directories of typescript compiler
  */
-function getOutputDirectories() {
-	if (existsSync("tsconfig.json")) {
+function getOutputDirectories(tsconfig) {
+	if (existsSync(tsconfig)) {
 		try {
-			const { compilerOptions } = parse(readFileSync("tsconfig.json", "utf8"))
+			const { compilerOptions, extends: parentConfigFile } = parse(readFileSync(tsconfig, "utf8"))
 			if (compilerOptions.outDir) return globDirectory(compilerOptions.outDir)
 			if (compilerOptions.outFile) return globDirectory(path.join(compilerOptions.outFile, '..'))
+			if (parentConfigFile) return getOutputDirectories(path.resolve(tsconfig, parentConfigFile))
 		} catch (error) {
-			throw new SyntaxError(`Could not parse tsconfig.json file. ${error}`)
+			throw new SyntaxError(`Could not parse tsconfig.json file at ${tsconfig}. ${error}`)
 		}
 	}
 	return ["."]
+}
+
+function getConfigFile(argv) {
+	const projectIndex = Math.max(argv.indexOf('-p'), argv.indexOf('--project'))
+	const projectOrTsConfig = argv[projectIndex + 1]
+	if (!projectOrTsConfig) {
+		return 'tsconfig.json'
+	}
+	if (projectOrTsConfig.endsWith('.json')) {
+		return projectOrTsConfig
+	}
+	return path.join(projectOrTsConfig, 'tsconfig.json')
 }
