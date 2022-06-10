@@ -19,7 +19,7 @@ export function build(aliases) {
 }
 
 export function compile() {
-	const tscProcess = rocess.platform === "win32"
+	const tscProcess = process.platform === "win32"
 		? spawnSync("node_modules\\.bin\\tsc", process.argv.slice(2), { stdio: 'inherit', shell: true })
 		: spawnSync("node_modules/.bin/tsc", process.argv.slice(2), { stdio: 'inherit', shell: false });
 	
