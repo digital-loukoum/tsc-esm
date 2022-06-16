@@ -1,7 +1,7 @@
 import { spawnSync } from "child_process"
 import { existsSync, readFileSync } from "fs"
 import glob from "fast-glob"
-import patchJsImports from "@digitak/grubber/library/utilities/patchJsImports"
+import patchJsImports from "@digitak/grubber/utilities/patchJsImports.js"
 import path from "path"
 import relaxedJson from "relaxed-json"
 
@@ -22,7 +22,6 @@ export function compile() {
 	const tscProcess = process.platform === "win32"
 		? spawnSync("node_modules\\.bin\\tsc", process.argv.slice(2), { stdio: 'inherit', shell: true })
 		: spawnSync("node_modules/.bin/tsc", process.argv.slice(2), { stdio: 'inherit', shell: false });
-	
 	if(tscProcess.error) throw tscProcess.error;
 }
 
