@@ -1,3 +1,11 @@
+> You should **not use this package!**
+>
+> Since TS 4.7 it is now possible to set the `moduleResolution` field to `node16` or `nodeNext` which enforces the use of the `.js` extension at the end of the imports.
+>
+> Previously, Typescript allowed to not add the imported file extension if it was a Typescript or Javascript file. This behavior was opposed to the recent developments of Ecmascript. Browsers, Node and Deno all needed the `.js` extension.
+>
+> I first developped `tsc-esm` as a patch to the `tsc` compiler that would add the `.js` extension. But this technique has drawbacks. For example, it cannot deal with Typescript aliases. I strongly encourage to follow the Ecmascript guidelines and the recent Typescript extension, that is to use Typescript@^4.7 and to set the `moduleResolution` field to `node16` or `nodeNext` in tsconfig.json.
+
 ***tsc-esm*** is a small wrapper library can be used to replace Typescript's `tsc` compilation command when generating modern Javascript with ES6 modules.
 
 ### The problem
